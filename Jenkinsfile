@@ -1,19 +1,42 @@
 pipeline {
-  agent {
-    docker {
-      image'maven:3.9.6-eclipse-temurin-17'
-    }
-  }
- stages {
-  stage ('Checkout'){
-   steps {
-    git url: 'https://github.com/Mallika-Kannan/Jenkins_practice', branch: 'feature-branch-jenkine-v1'
-    }
+  agent any
+  stages {
+    stage ('Checkout') {
+      steps {
+        git(
+          url: 'https://github.com/Mallika-Kannan/Jenkins_practice.git',
+          branch: 'feature-branch-jenkine-v1',
+          credentialsId: 'githubPAT'
+        )
+      }
     }
 
-  stage ('Build'){
+    stage ('Build') {
       steps {
         sh 'mvn clean package'
+      }
+    }
+
+    stage ('Build Docker image') {
+      steps {
+        sh 'docker build -t $DOCKER_IMAGE .'
+      }
+    }
+
+    stage ('Push docker image') {
+      steps {
+        withCredentials([
+          usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+          )
+        ]) {
+          sh '''
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            docker push $DOCKER_IMAGE
+          '''
+        }
       }
     }
   }
