@@ -1,5 +1,9 @@
 pipeline {
   agent any
+   environment {
+    DOCKER_IMAGE = 'mallikakannan/hello-java:v1'
+  }
+
   stages {
     stage ('Checkout') {
       steps {
