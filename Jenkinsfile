@@ -23,7 +23,17 @@ pipeline {
         sh 'mvn clean package'
       }
     }
-
+    stage ('Sonarqube Analysis') {
+      steps {
+        withSonarQubeEnv ('sonarqube-local) {
+            sh '''
+               /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \
+                        -Dsonar.projectKey=my-java-app \
+                        -Dsonar.sources=. 
+                    '''
+                          }
+                          }
+                          }
     stage ('Build Docker image') {
       steps {
         sh 'docker build -t $DOCKER_IMAGE .'
