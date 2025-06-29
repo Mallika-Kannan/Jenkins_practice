@@ -25,12 +25,9 @@ pipeline {
     }
     stage ('Sonarqube Analysis') {
       steps {
+        def scannerHome = tool 'SonarScanner'
         withSonarQubeEnv ('sonarqube-local') {
-            sh '''
-               /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \
-                        -Dsonar.projectKey=my-java-app \
-                        -Dsonar.sources=. 
-                    '''
+            sh " $ {scannerHome}/bin/sonarscanner' -Dsonar.projectKey=my-java-app -Dsonar.sources=."
                           }
                           }
                           }
