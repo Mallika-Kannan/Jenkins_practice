@@ -25,7 +25,7 @@ pipeline {
     }
     stage ('Sonarqube Analysis') {
       steps {
-        withSonarQubeEnv ('sonarqube-local) {
+        withSonarQubeEnv ('sonarqube-local') {
             sh '''
                /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \
                         -Dsonar.projectKey=my-java-app \
