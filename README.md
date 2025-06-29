@@ -1,4 +1,3 @@
-# Jenkins_practice
 
 # Jenkins-Docker-Maven Setup Guide
 
@@ -29,6 +28,4 @@
 
    * GitHub PAT (for code checkout)
    * DockerHub credentials (for push stage)
-
-5. Run your pipeline!
 
