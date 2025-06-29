@@ -25,12 +25,14 @@ pipeline {
     }
     stage ('Sonarqube Analysis') {
       steps {
+        script {
         def scannerHome = tool 'SonarScanner'
         withSonarQubeEnv ('sonarqube-local') {
             sh "'${scannerHome}/bin/sonar-scanner' -Dsonar.projectKey=my-java-app -Dsonar.sources=."
                           }
                           }
                           }
+    }
     stage ('Build Docker image') {
       steps {
         sh 'docker build -t $DOCKER_IMAGE .'
