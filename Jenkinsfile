@@ -25,11 +25,14 @@ pipeline {
     }
     stage ('Sonarqube Analysis') {
       steps {
-        script {
-        def scannerHome = tool 'SonarScanner'
-        withSonarQubeEnv ('sonarqube-local') {
-            sh "'${scannerHome}/bin/sonar-scanner' -Dsonar.projectKey=my-java-app -Dsonar.sources=."
-                          }
+       withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+  sh """
+    /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \
+    -Dsonar.projectKey=my-java-app \
+    -Dsonar.sources=. \
+    -Dsonar.host.url=http://sonarqube:9000 \
+    -Dsonar.login=$SONAR_TOKEN
+  """
                           }
                           }
     }
