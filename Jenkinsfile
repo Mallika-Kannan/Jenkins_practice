@@ -25,13 +25,13 @@ pipeline {
     }
     stage ('Sonarqube Analysis') {
       steps {
-       withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+       withCredentials([string(credentialsId: 'sonarqube-token', variable: 'sonarqube-token')]) {
   sh """
     /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \
     -Dsonar.projectKey=my-java-app \
     -Dsonar.sources=. \
     -Dsonar.host.url=http://sonarqube:9000 \
-    -Dsonar.login=$SONAR_TOKEN
+    -Dsonar.login=$sonarqube-token
   """
                           }
                           }
