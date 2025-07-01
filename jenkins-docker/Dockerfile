@@ -38,7 +38,9 @@ ENV PATH="$SONAR_SCANNER_HOME/bin:$PATH"
 
 USER root
 
-# Create and set correct permissions for .kube and .minikube
+# Create and set correct permissions for .kube and .minikube for Jenkins user
 RUN mkdir -p /home/jenkins/.kube /home/jenkins/.minikube && \
     chown -R jenkins:jenkins /home/jenkins/.kube /home/jenkins/.minikube
+
+USER jenkins
 USER jenkins
