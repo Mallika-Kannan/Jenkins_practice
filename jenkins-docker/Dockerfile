@@ -6,11 +6,10 @@ USER root
 RUN apt-get update && \
     apt-get install -y curl gnupg2 lsb-release unzip openjdk-17-jdk
     
-#Install Kubectl
-RUN bash -c "KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt) && \
-    curl -L -o kubectl https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
-    chmod +x kubectl && mv kubectl /usr/local/bin/"
-
+# Install kubectl (fixed version for reproducibility)
+RUN curl -LO https://dl.k8s.io/release/v1.30.1/bin/linux/amd64/kubectl && \
+    chmod +x kubectl && \
+    mv kubectl /usr/local/bin/
 
 # Install Maven
 RUN apt-get install -y maven
