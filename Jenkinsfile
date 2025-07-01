@@ -30,7 +30,7 @@ pipeline {
         sonar-scanner -X \
         -Dsonar.projectKey=my-java-app \
         -Dsonar.sources=. \
-        -Dsonar.host.url=http://sonarqube:9000
+        -Dsonar.host.url=http://host.docker.internal:9000
       '''
                           }
                           }
