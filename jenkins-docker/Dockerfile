@@ -8,8 +8,9 @@ RUN apt-get update && \
     
 #Install Kubectl
 RUN bash -c "KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt) && \
-    curl -LO https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
+    curl -L -o kubectl https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod +x kubectl && mv kubectl /usr/local/bin/"
+
 
 # Install Maven
 RUN apt-get install -y maven
