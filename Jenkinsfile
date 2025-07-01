@@ -27,7 +27,7 @@ pipeline {
       steps {
        withSonarQubeEnv('sonarqube-local') {
       sh '''
-        sonar-scanner \
+        sonar-scanner -X \
         -Dsonar.projectKey=my-java-app \
         -Dsonar.sources=. \
         -Dsonar.host.url=http://sonarqube:9000
