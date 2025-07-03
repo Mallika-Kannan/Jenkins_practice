@@ -60,6 +60,8 @@ pipeline {
     stage ('Deploy to Kubernetes') {
       steps {
         script {
+          // Add this new line to fix permissions
+            sh 'chmod 600 /var/jenkins_home/.kube/config'
           sh 'kubectl apply -f deployment.yaml'
         }
       }
