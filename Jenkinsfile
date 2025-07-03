@@ -62,7 +62,7 @@ pipeline {
     stage ('Deploy to Kubernetes') {
       steps {
         script {
-          sh "sed -i 's|image: .*|image: ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}|g' deployment.yaml
+          sh "sed -i 's|image: .*|image: ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}|g' deployment.yaml"
   // This block securely injects the secret file into the build
           withCredentials([file(credentialsId: 'kubeconfig-local', variable: 'KUBECONFIG')]) {
           sh 'kubectl apply -f deployment.yaml'
