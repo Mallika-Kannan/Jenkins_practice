@@ -1,5 +1,5 @@
 public class Hello {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("✅ Hello, Jenkins with Maven!");
         System.out.println("Application is now running in an infinite loop...");
         while (true) {
