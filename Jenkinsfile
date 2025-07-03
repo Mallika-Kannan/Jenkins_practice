@@ -60,8 +60,8 @@ pipeline {
     stage ('Deploy to Kubernetes') {
       steps {
         script {
-          // Add this new line to fix permissions
-            sh 'chmod 600 /var/jenkins_home/.kube/config'
+  // This block securely injects the secret file into the build
+          withCredentials([file(credentialsId: 'kubeconfig-local', variable: 'KUBECONFIG')]) {
           sh 'kubectl apply -f deployment.yaml'
         }
       }
