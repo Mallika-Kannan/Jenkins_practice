@@ -38,9 +38,11 @@ pipeline {
     }
     stage ('Build Docker image') {
       steps {
+        script {
         def dockerImage = "mallikakannan/hello-java:${params.IMAGE_VERSION}"
         sh 'docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} .'
       }
+    }
     }
 
     stage ('Push docker image') {
