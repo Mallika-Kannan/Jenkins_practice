@@ -28,7 +28,7 @@
                 !!! IMPORTANT: CHANGE THIS TO THE FULL NAME OF YOUR MAIN CLASS !!!
                 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
               -->
-              <mainClass>com.mallika.App</mainClass>
+              <mainClass>Hello</mainClass>
             </manifest>
           </archive>
         </configuration>
