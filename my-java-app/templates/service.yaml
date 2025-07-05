@@ -1,0 +1,12 @@
+# In my-java-app/templates/service.yamlapiVersion: v1
+kind: Service
+metadata:
+  name: my-java-app-service
+spec:
+  # We will define the type in our values filetype: {{ .Values.service.type}}
+  selector:
+    app: my-java-app
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}

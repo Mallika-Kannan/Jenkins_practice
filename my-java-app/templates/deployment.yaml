@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # GOOD: Uses a helper to create a unique name for the deployment
+  name: {{ include "my-java-app.fullname" . }}
+  # GOOD: Uses a helper to apply a standard set of consistent labels
+  labels:
+    {{- include "my-java-app.labels" . | nindent 4 }}
+spec:
+  # GOOD: The number of replicas is configurable via values.yaml
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      # GOOD: The selector labels match the pod template labels below
+      {{- include "my-java-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        # GOOD: The pod labels match the selector labels above
+        {{- include "my-java-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }} # GOOD: Uses the chart name for the container
+          # GOOD: Correct syntax with each key on a new line
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              # GOOD: Port is configurable via values.yaml
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          # It's also good practice to include liveness and readiness probes
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          # And resource limits
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
