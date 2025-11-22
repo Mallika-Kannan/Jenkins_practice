@@ -3,7 +3,7 @@ pipeline {
     stages {
       stage ('clone code'){
         steps {
-          git branch:"main", URL:"https://github.com/Mallika-Kannan/Jenkins_practice.git"
+          git branch:"main", url:"https://github.com/Mallika-Kannan/Jenkins_practice.git"
         }
       }
       stage ('Build docker image'){
